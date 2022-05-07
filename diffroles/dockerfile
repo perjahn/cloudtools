@@ -1,0 +1,10 @@
+FROM mcr.microsoft.com/powershell
+
+WORKDIR /app
+
+RUN echo 'Installing the Az module will take a minute or two...' && \
+    pwsh -c 'Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force'
+
+COPY . .
+
+ENTRYPOINT ["pwsh", "/app/diffroles.ps1", "-login"]
