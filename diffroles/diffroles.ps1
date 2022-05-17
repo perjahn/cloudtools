@@ -33,6 +33,10 @@ function Main([string[]] $mainargs) {
   }
 
   [string[]] $allsubscriptions = Get-AzSubscription | % { $_.Name }
+  if (!$allsubscriptions) {
+    Write-Host "Couldn't get subscriptions (use Connect-AzAccount or -login flag)." -f Red
+    exit 1
+  }
 
   Write-Host "Got $($allsubscriptions.Count) total subscriptions." -f Cyan
 
